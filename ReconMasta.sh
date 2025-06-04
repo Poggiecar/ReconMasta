@@ -92,6 +92,7 @@ touch "$subs/hosts_vivos.txt"
 if command -v httpx &>/dev/null; then
     cat "$subs/subdominios.txt" | httpx --threads 50 -sc -title -ip -td -probe -o "$subs/hosts_vivos.txt"
 fi
+awk '{print $1}' "$subs/hosts_vivos.txt" > "$subs/hosts_urls.txt"
 
 # 🚩 Infraestructura directa detectada (OVH, DigitalOcean, etc.)
 log "${YELLOW}[*] Analizando IPs para detección de infraestructura directa...${NC}"
