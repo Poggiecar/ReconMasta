@@ -26,6 +26,10 @@ Options:
 - `--nuclei` : run Nuclei automatically
 - `--no-nuclei` : skip Nuclei step
 
+## Disclaimer
+
+Use this tool **only** on targets you own or have explicit permission to test. The author assumes no responsibility for any misuse.
+
 When debug mode is enabled, a `run.log` file will be created inside the generated
 results folder containing a full command trace.
 
