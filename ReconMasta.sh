@@ -11,6 +11,26 @@ NC='\033[0m'
 set -uo pipefail
 trap 'echo -e "${RED}[!] Algo falló. Abortando.${NC}" >&2' ERR
 
+# 📦 Dependencias requeridas
+REQUIRED_CMDS=(
+    anew
+    subfinder
+    assetfinder
+    findomain
+    amass
+    httpx
+    jq
+    dnsrecon
+    whois
+    aquatone
+)
+
+for cmd in "${REQUIRED_CMDS[@]}"; do
+    if ! command -v "$cmd" >/dev/null 2>&1; then
+        echo -e "${RED}[!] El comando '$cmd' no está instalado o no se encuentra en el PATH.${NC}"
+    fi
+done
+
 # 🧠 Verbosidad
 VERBOSE=0
 while [[ $# -gt 0 ]]; do
