@@ -11,6 +11,9 @@ NC='\033[0m'
 set -uo pipefail
 trap 'echo -e "${RED}[!] Algo falló. Abortando.${NC}" >&2' ERR
 
+# Debug flag
+DEBUG_MODE=0
+
 # 📦 Dependencias requeridas
 REQUIRED_CMDS=(
     anew
@@ -40,6 +43,7 @@ while [[ $# -gt 0 ]]; do
     case "$1" in
         -v) VERBOSE=1 ;;
         -vv) VERBOSE=2 ;;
+        -d|--debug) DEBUG_MODE=1 ;;
         --nuclei) NUCLEI_CHOICE="yes" ;;
         --no-nuclei) NUCLEI_CHOICE="no" ;;
     esac
@@ -70,6 +74,10 @@ base="output/$empresa_slug/$fecha/results"
 subs="$base/subdomains"
 scan="$base/analysis"
 mkdir -p "$subs" "$scan"
+
+LOG_FILE="$base/run.log"
+[[ $DEBUG_MODE -eq 1 ]] && set -x
+exec > >(tee -a "$LOG_FILE") 2>&1
 
 echo "$dominio" > "$subs/domain.txt"
 > "$subs/subdominios.txt"
@@ -110,14 +118,14 @@ fi
 
 log "${YELLOW}[*] crt.sh...${NC}"
 if command -v jq &>/dev/null; then
-    curl -s "https://crt.sh/?q=%25.$dominio&output=json" | jq -r '.[].name_value' | sed 's/\*\.//g' | sort -u > "$subs/crtsh.txt"
+    curl -s "https://crt.sh/?q=%25.$dominio&output=json" | jq -r '.[].name_value' | sed 's/\*\.//g' | sort -u > "$subs/crtsh.txt" || true
     [[ -s "$subs/crtsh.txt" ]] && cat "$subs/crtsh.txt" | anew "$subs/subdominios.txt"
 fi
 
 log "${YELLOW}[*] DNSrecon (modo pasivo)...${NC}"
 if command -v dnsrecon &>/dev/null; then
     dnsrecon -d "$dominio" -a > "$subs/dnsrecon.txt"
-    grep -oE "\\b([a-zA-Z0-9_-]+\\.)+$dominio\\b" "$subs/dnsrecon.txt" | anew "$subs/subdominios.txt"
+    grep -oE "\\b([a-zA-Z0-9_-]+\\.)+$dominio\\b" "$subs/dnsrecon.txt" | anew "$subs/subdominios.txt" || true
 fi
 
 # 🌐 Resolución con httpx
@@ -158,7 +166,7 @@ if command -v whois &>/dev/null; then
     awk '{print $3}' "$subs/hosts_vivos.txt" | sort -u > "$scan/ips_detectadas.txt"
 
     while read -r ip; do
-        org=$(whois "$ip" | grep -Ei 'OrgName|NetName|Organization' | head -1)
+        org=$(whois "$ip" | grep -Ei 'OrgName|NetName|Organization' | head -1 || true)
         if echo "$org" | grep -Eiq 'ovh|digitalocean|linode|hetzner|vultr|contabo'; then
             echo -e "$ip\t$org" >> "$scan/infra_directa.txt"
         fi
@@ -177,7 +185,7 @@ fi
 # 🖼 Screenshots con Aquatone
 log "${YELLOW}[*] Screenshots con Aquatone...${NC}"
 if command -v aquatone &>/dev/null; then
-    cat "$subs/hosts_vivos.txt" | aquatone -chrome-path /usr/bin/chromium -out "$subs/aquatone" > /dev/null 2>&1
+    cat "$subs/hosts_vivos.txt" | aquatone -chrome-path /usr/bin/chromium -out "$subs/aquatone" > /dev/null 2>&1 || true
     log "${GREEN}[+] Screenshots guardados en: $subs/aquatone${NC}"
 fi
 
