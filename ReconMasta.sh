@@ -23,6 +23,8 @@ REQUIRED_CMDS=(
     dnsrecon
     whois
     aquatone
+    nuclei
+    subjack
 )
 
 for cmd in "${REQUIRED_CMDS[@]}"; do
