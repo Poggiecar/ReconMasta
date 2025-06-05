@@ -1,0 +1,42 @@
+# ======================
+# GENERAL
+# ======================
+threads: 50
+user_agent: "ReconMastaBot/1.0"
+
+# ======================
+# AMASS
+# ======================
+amass_config_path: "~/.config/amass/config.yaml"
+amass_flags: "-passive"
+
+# ======================
+# SUBFINDER
+# ======================
+subfinder_flags: "-all -recursive --silent"
+
+# ======================
+# HTTPX
+# ======================
+httpx_flags: "-sc -title -ip -td -probe -mc 200,300,302,303,401,403,404,429,500 -c"
+
+# ======================
+# NUCLEI
+# ======================
+nuclei_flags: ""
+
+# ======================
+# SUBJACK
+subjack_flags: "-t 100 -timeout 30 -ssl -v"
+
+# ======================
+# AQUATONE
+aquatone_chrome_path: "/usr/bin/chromium"
+
+# ======================
+# CRT.SH
+enable_crtsh: true
+
+# ======================
+# DNSRECON
+enable_dnsrecon: true
