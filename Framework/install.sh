@@ -15,6 +15,10 @@ APT_PACKAGES=(git curl jq whois dnsrecon unzip python3-pip)
 echo "[*] Instalando paquetes: ${APT_PACKAGES[*]}"
 $SUDO apt-get install -y "${APT_PACKAGES[@]}"
 
+# Paquetes de Python requeridos
+echo "[*] Instalando dependencias de Python..."
+pip3 install -r "$(dirname "$0")/requirements.txt"
+
 # 🧪 Go tools
 GO_TOOLS=(
     github.com/projectdiscovery/subfinder/v2/cmd/subfinder

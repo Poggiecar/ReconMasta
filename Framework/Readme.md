@@ -34,6 +34,9 @@ chmod +x install.sh
 ./install.sh
 ```
 
+El script instalará también las dependencias de Python indicadas en
+`requirements.txt`.
+
 ## Uso básico
 
 ```bash
