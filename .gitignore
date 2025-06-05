@@ -1,0 +1,21 @@
+# Ignore output directories
+outputs/
+crawler_output/
+
+# Ignore archives
+*.zip
+*.tar.gz
+*.tar
+*.gz
+*.7z
+*.rar
+
+# Ignore logs
+*.log
+
+# Byte-compiled / compiled files
+__pycache__/
+*.py[cod]
+
+# Misc
+.DS_Store
