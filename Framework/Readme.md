@@ -40,7 +40,8 @@ El script instalará también las dependencias de Python indicadas en
 ## Uso básico
 
 ```bash
-./reconmasta.sh -d -v -o resultados
+./reconmasta.sh -d -v
+./reconmasta.sh -vv --no-nuclei
 ```
 
 ## Contribución
