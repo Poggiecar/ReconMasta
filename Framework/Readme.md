@@ -43,3 +43,7 @@ chmod +x install.sh
 ## Contribución
 
 ¡Las contribuciones son bienvenidas! Abre un issue o un pull request para sugerir mejoras.
+
+## Licencia
+
+Este proyecto se distribuye bajo la licencia MIT. Consulta el archivo [LICENSE](../LICENSE) para más detalles.
