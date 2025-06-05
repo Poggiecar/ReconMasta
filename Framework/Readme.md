@@ -1,6 +1,6 @@
 # 🔍 ReconMasta
 
-ReconMasta es un framework profesional y modular de **reconocimiento ofensivo**, ideal para **bug bounty hunters** y **pentesters**. Automatiza la enumeración de subdominios, escaneo de hosts, detección de tecnologías, toma de screenshots, OSINT, y más.
+ReconMasta es un framework profesional y modular de **reconocimiento ofensivo**, ideal para **bug bounty hunters** y **pentesters**. Automatiza la enumeración de subdominios, escaneo de hosts, detección de tecnologías, toma de screenshots, OSINT y más.
 
 ---
 
@@ -15,13 +15,6 @@ ReconMasta es un framework profesional y modular de **reconocimiento ofensivo**,
 
 ---
 
-## # 🔍 ReconMasta
-
-ReconMasta es un framework profesional y modular de **reconocimiento ofensivo**, ideal para **bug bounty hunters** y **pentesters**. Automatiza la enumeración de subdominios, escaneo de hosts, detección de tecnologías, toma de screenshots, OSINT, y más.
-
-
-
----
 ## ⚙️ Parámetros disponibles
 | Opción          | Descripción                                            |
 | --------------- | ------------------------------------------------------ |
@@ -32,14 +25,21 @@ ReconMasta es un framework profesional y modular de **reconocimiento ofensivo**,
 | `--nuclei`      | Ejecuta automáticamente el módulo de `nuclei`          |
 | `--no-nuclei`   | Omite el escaneo de vulnerabilidades con `nuclei`      |
 
-
 ## 🚀 Instalación
 
 ```bash
 git clone https://github.com/tuusuario/ReconMasta.git
-cd ReconMasta
+cd ReconMasta/Framework
 chmod +x install.sh
 ./install.sh
+```
 
+## Uso básico
 
+```bash
+./reconmasta.sh -d -v -o resultados
+```
 
+## Contribución
+
+¡Las contribuciones son bienvenidas! Abre un issue o un pull request para sugerir mejoras.
